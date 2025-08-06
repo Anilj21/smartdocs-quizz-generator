@@ -1,0 +1,159 @@
+Here’s a **complete full-stack single prompt** you can use to build the **entire SmartDocs Quiz Generation Application** — including UI, backend, AI quiz creation, saving to DB, and downloading as PDF.
+
+---
+
+### ✅ ONE FULL PROMPT TO BUILD THE SMARTDOCS QUIZ FEATURE
+
+> 📌 **Prompt to use in ChatGPT (with code interpreter enabled)** or to pass to a dev/AI agent:
+
+---
+
+### 💡 Build a Full-Stack Web App: SmartDocs Quiz Generator
+
+I want you to create a **full-stack AI-powered quiz generation application** — as a feature of a document assistant platform called **SmartDocs**.
+
+---
+
+#### 🧑‍🎓 USER FLOW
+
+1. User uploads a `.pptx` presentation
+2. The app uses OpenAI GPT to convert slide content into quiz questions (MCQs)
+3. User sees the quiz on screen
+4. User can download the quiz as a formatted PDF
+5. User can save the quiz to a personal library (stored in Firebase or MongoDB)
+6. User can view previously saved quizzes
+
+---
+
+#### 🧩 FRONTEND
+
+* **Framework:** React.js + Tailwind CSS
+* **Pages:**
+
+  * Upload Page: upload `.pptx`, "Generate Quiz" button
+  * Quiz Viewer: display MCQs (question, options, correct answer)
+  * Save Quiz + Download PDF buttons
+  * Quiz Library Page: list of past quizzes
+* **Functionality:**
+
+  * File validation for `.pptx`
+  * Axios calls to backend APIs:
+
+    * `/api/generate-quiz`
+    * `/api/save-quiz`
+    * `/api/my-quizzes`
+    * `/api/download-pdf`
+  * PDF download using `jspdf` or handled by backend
+
+---
+
+#### ⚙️ BACKEND
+
+* **Language:** Python (Flask) or Node.js (Express)
+* **APIs:**
+
+  1. `/api/generate-quiz`
+
+     * Accept `.pptx`
+     * Use `python-pptx` to extract slide text
+     * Call OpenAI API to convert slide text into:
+
+       ```json
+       {
+         "questions": [
+           {
+             "question": "What is AI?",
+             "options": ["Artificial Intelligence", "Auto Input", "Animal Instinct", "None"],
+             "answer": "Artificial Intelligence"
+           },
+           ...
+         ]
+       }
+       ```
+
+  2. `/api/save-quiz`
+
+     * Accept JSON: user\_id, quiz\_title, questions\[]
+     * Store in **MongoDB** or **Firebase**
+
+  3. `/api/my-quizzes?user_id=...`
+
+     * Return list of saved quizzes for user
+
+  4. `/api/download-pdf`
+
+     * Accept JSON of quiz
+     * Return a **formatted quiz PDF** (use `reportlab` or `fpdf`)
+
+---
+
+#### 📚 DATABASE (Choose one)
+
+* **Firebase Firestore**
+
+  * Collection: `quizzes`
+  * Fields:
+
+    ```json
+    {
+      "user_id": "user123",
+      "quiz_title": "Intro to AI",
+      "questions": [...],
+      "created_at": timestamp
+    }
+    ```
+* **OR MongoDB** with similar schema
+
+---
+
+#### 🧠 AI (OpenAI GPT API)
+
+* Prompt GPT like:
+
+  ```
+  Convert the following bullet points into 5 MCQ questions with 4 options each and clearly indicate the correct answer:
+  [text extracted from slides]
+  ```
+* Use `text-davinci-003` or `gpt-4-turbo` for better control
+
+---
+
+#### 📥 Dependencies
+
+**Frontend**
+
+* axios
+* react-router
+* jspdf (optional for client-side PDF)
+
+**Backend (Python)**
+
+* flask
+* openai
+* python-pptx
+* reportlab / fpdf
+* firebase-admin or pymongo
+
+---
+
+#### 📄 EXTRAS
+
+* Quiz titles auto-generated from slide title or user input
+* Support user authentication via Firebase Auth (optional)
+* Store quiz metadata (title, date, user\_id)
+
+---
+
+### 🧪 Example Test
+
+Upload `AI_Intro.pptx` → Returns 5 MCQs → User sees the quiz → Clicks "Download PDF" → Quiz saved to DB → Viewable in "My Quizzes"
+
+---
+
+✅ Build this complete system, keeping code modular and comments clear.
+
+---
+
+Would you like me to now give you the **folder structure** or **starter code** for this system?
+
+Let me know how you'd like to proceed: **code setup**, **frontend**, **backend**, or **PDF quiz generator**.
